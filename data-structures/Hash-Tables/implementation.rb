@@ -1,7 +1,7 @@
 class HashTable
   def initialize(size)
     @data = Array.new(size)
-    @value = 0
+    # @data = []
   end
 
   def hash(key)
@@ -15,22 +15,35 @@ class HashTable
   end
 
   def set(key, value)
-    @data[@value] = Array.new(2)
-    @data[@value][0] = key
-    @data[@value][1] = value
-    @value += 1
+    address = self.hash(key)
+    if(!@data[address])
+      @data[address] = []
+    end
+    @data[address] << ([key,value])
+    return @data
   end
 
   def get(key)
-    @data.each do |data|
-      if data[0] == key
-        return data[1]
-        break
+    address = self.hash(key)
+    current_bucket = @data[address]
+    i = 0
+    if(current_bucket)
+      while i < current_bucket.length
+        if(current_bucket[i][0] == key)
+          return current_bucket[i][1]
+        end
+        i += 1
       end
     end
+    return "Key Undefined!"
   end
 end
 
-new_hash_table = HashTable.new(5)
-p new_hash_table.set('banana', 500)
-p new_hash_table.get('banana')
+new_hash_table = HashTable.new(50)
+new_hash_table.set('grapes', 10000)
+p new_hash_table.get('grapes')
+new_hash_table.set('apples', 9)
+p new_hash_table.get('apples')
+
+
+
