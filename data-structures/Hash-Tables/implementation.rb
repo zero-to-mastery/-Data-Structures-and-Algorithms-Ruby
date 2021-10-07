@@ -35,7 +35,7 @@ class HashTable
         i += 1
       end
     end
-    return "Key Undefined!"
+    return nil
   end
 end
 
