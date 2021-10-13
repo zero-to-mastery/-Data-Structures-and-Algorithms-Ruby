@@ -61,20 +61,6 @@ class LinkedList
     return array
   end
 
-#Initial answer
-#   def insert_node(index, value)
-#     # check parameters
-#     node_values = print_list
-#     node_values.insert(index,value)
-#     node_values.each_with_index do |node, index|
-#       if index == 0
-#         self.initialize(node)
-#       else
-#         self.append(node)
-#       end
-#     end
-#     return self
-#   end
   def insert_node(index, value)
     if(index >= @length)
       return self.append(value)
@@ -92,6 +78,16 @@ class LinkedList
     @length += 1
     return self.print_list
   end
+
+  def remove_node(index)
+    # Check params
+    leader = self.traverse_to_index(index - 1)
+    unwanted_node = leader[:next]
+    leader[:next] = unwanted_node[:next]
+    @length -= 1
+    return self.print_list
+  end
+
   def traverse_to_index(index)
     counter = 0
     current_node = @head
@@ -111,6 +107,9 @@ my_linked_list.append(5)
 my_linked_list.append(7)
 my_linked_list.prepend(3)
 
+# [3,24,10,5,7]
+
 my_linked_list.insert_node(1, 24)
-p my_linked_list
+p my_linked_list.remove_node(1)
+
 
