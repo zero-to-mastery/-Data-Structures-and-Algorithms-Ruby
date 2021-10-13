@@ -91,16 +91,46 @@ class LinkedList
   def traverse_to_index(index)
     counter = 0
     current_node = @head
-    while(counter != index)
+    while(counter != index) do
       current_node = current_node[:next]
       counter += 1
     end
     return current_node
   end
+
+  def reverse
+    first = @head
+    @tail = @head
+    second = first[:next]
+    while(second) do
+      temp = second[:next]
+      second[:next] = first
+      first = second
+      second = temp
+    end
+    @head[:next] = nil
+    @head = first
+    return self.print_list
+  end
 end
 
 
+# if (!self[:head][:next])
+#   return self[:head]
+# end
+# first = @head
+# @tail = @head
+# second = first[:next]
 
+# while(second) do
+#   temp = second[:next]
+#   second[:next] = first
+#   first = second
+#   second = temp
+# end
+# @head[:next] = nil
+# @head = first
+# return self.print_list
 
 my_linked_list = LinkedList.new(10)
 my_linked_list.append(5)
@@ -110,6 +140,11 @@ my_linked_list.prepend(3)
 # [3,24,10,5,7]
 
 my_linked_list.insert_node(1, 24)
-p my_linked_list.remove_node(1)
+my_linked_list.remove_node(1)
+p my_linked_list.print_list
+my_linked_list.reverse
+p my_linked_list.print_list
+
+
 
 
