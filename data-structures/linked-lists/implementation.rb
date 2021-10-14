@@ -12,41 +12,33 @@
 #   }
 # };
 
-# class Node
-#   attr_accessor :next, :value
-#   def initialize(value)
-#     @value = value
-#     @next = nil
-#   end
-# end
+class Node
+  attr_accessor :value, :next
 
-
-class LinkedList
   def initialize(value)
-    @head = {
-      value: value,
-      next: nil
-    }
+    @value = value
+    @next = nil
+  end
+end
+
+
+class LinkedList < Node
+  def initialize(value)
+    @head = Node.new(value)
     @tail = @head
     @length = 1
   end
 
   def append(value)
-    new_node = {
-      value: value,
-      next: nil
-    }
-    @tail[:next] = new_node
+    new_node = Node.new(value)
+    @tail.next = new_node
     @tail = new_node
     @length += 1
   end
 
   def prepend(value)
-    new_node = {
-      value: value,
-      next: nil
-    }
-    new_node[:next] = @head
+    new_node = Node.new(value)
+    new_node.next = @head
     @head = new_node
     @length += 1
   end
@@ -55,8 +47,8 @@ class LinkedList
     array = []
     current_node = @head
     while(current_node != nil) do
-      array << current_node[:value]
-      current_node = current_node[:next]
+      array << current_node.value
+      current_node = current_node.next
     end
     return array
   end
@@ -66,15 +58,11 @@ class LinkedList
       return self.append(value)
     end
 
-    new_node = {
-      value: value,
-      next: nil
-    }
-
+    new_node = Node.new(value)
     leader = self.traverse_to_index(index - 1)
-    holding_pointer = leader[:next]
-    leader[:next] = new_node
-    new_node[:next] = holding_pointer
+    holding_pointer = leader.next
+    leader.next = new_node
+    new_node.next = holding_pointer
     @length += 1
     return self.print_list
   end
@@ -82,8 +70,8 @@ class LinkedList
   def remove_node(index)
     # Check params
     leader = self.traverse_to_index(index - 1)
-    unwanted_node = leader[:next]
-    leader[:next] = unwanted_node[:next]
+    unwanted_node = leader.next
+    leader.next = unwanted_node.next
     @length -= 1
     return self.print_list
   end
@@ -92,7 +80,7 @@ class LinkedList
     counter = 0
     current_node = @head
     while(counter != index) do
-      current_node = current_node[:next]
+      current_node = current_node.next
       counter += 1
     end
     return current_node
@@ -101,50 +89,28 @@ class LinkedList
   def reverse
     first = @head
     @tail = @head
-    second = first[:next]
+    second = first.next
     while(second) do
-      temp = second[:next]
-      second[:next] = first
+      temp = second.next
+      second.next = first
       first = second
       second = temp
     end
-    @head[:next] = nil
+    @head.next = nil
     @head = first
     return self.print_list
   end
 end
 
-
-# if (!self[:head][:next])
-#   return self[:head]
-# end
-# first = @head
-# @tail = @head
-# second = first[:next]
-
-# while(second) do
-#   temp = second[:next]
-#   second[:next] = first
-#   first = second
-#   second = temp
-# end
-# @head[:next] = nil
-# @head = first
-# return self.print_list
-
 my_linked_list = LinkedList.new(10)
-my_linked_list.append(5)
+p my_linked_list.print_list
 my_linked_list.append(7)
+p my_linked_list.print_list
 my_linked_list.prepend(3)
-
-# [3,24,10,5,7]
-
+p my_linked_list.print_list
 my_linked_list.insert_node(1, 24)
+p my_linked_list.print_list
 my_linked_list.remove_node(1)
 p my_linked_list.print_list
 my_linked_list.reverse
 p my_linked_list.print_list
-
-
-
-
