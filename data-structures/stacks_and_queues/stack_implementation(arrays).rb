@@ -5,14 +5,16 @@ class Stack
 
   def push(value)
     @array << value
+    return @array
   end
 
   def peek
-    p @array[@array.length - 1]
+    return @array[@array.length - 1]
   end
 
   def pop
     @array.pop
+    return @array
   end
 
 end
@@ -23,7 +25,7 @@ my_stack.push("Google")
 my_stack.push("Udemy")
 my_stack.push("Discord")
 p my_stack
-my_stack.peek
+p my_stack.peek
 my_stack.pop
 p my_stack
 
