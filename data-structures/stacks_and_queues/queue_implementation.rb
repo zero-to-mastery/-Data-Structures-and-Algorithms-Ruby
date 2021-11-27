@@ -33,7 +33,6 @@ class Queue
   end
 
   def dequeue
-
     if (!@first)
       return nil
     end

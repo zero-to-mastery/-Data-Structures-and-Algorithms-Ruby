@@ -74,14 +74,12 @@ end
 #   4     20
 # 1  6  15  170
 
-# def traverse(node)
-#   tree = { value: node.value}
-#   tree.left = node.left == nil ? nil : traverse(node.left)
-#   tree.right = node.right == nil ? nil : traverse(node.right)
-#   return tree
-# end
-
-#Once I start learning algorithms I will corrrect.
+def traverse(node)
+  tree = { value: node.value}
+  tree[:left] = node.left == nil ? nil : traverse(node.left)
+  tree[:right] = node.right == nil ? nil : traverse(node.right)
+  return tree
+end
 
 
 tree = BinarySearchTree.new
@@ -93,6 +91,6 @@ tree.insert(170)
 tree.insert(15)
 tree.insert(1)
 p tree.lookup(5)
-# p traverse(tree.root).to_json
+p traverse(tree.root).to_json
 
 
