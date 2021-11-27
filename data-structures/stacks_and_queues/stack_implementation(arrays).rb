@@ -16,7 +16,6 @@ class Stack
     @array.pop
     return @array
   end
-
 end
 
 

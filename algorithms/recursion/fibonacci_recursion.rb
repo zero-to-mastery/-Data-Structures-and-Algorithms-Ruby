@@ -12,7 +12,7 @@ For example: fibonacciRecursive(6) should return 8
 
 =end
 
-def fibonacci_iterative(n)
+def fibonacci_iterative(n) #0(n)
   fibonacci_array = [0, 1]
   count = n - 1
   i = 0
@@ -28,9 +28,9 @@ def fibonacci_iterative(n)
   return current_value
 end
 
-p fibonacci_iterative(8)
+p fibonacci_iterative(6)
 
-def fibonacci_recursive(n)
+def fibonacci_recursive(n) #0(2^n)
   # Base case :  when N is less than 2.
   if n < 2
     n
@@ -42,4 +42,4 @@ def fibonacci_recursive(n)
   end
 end
 
-p fibonacci_recursive(8)
+p fibonacci_recursive(6)
