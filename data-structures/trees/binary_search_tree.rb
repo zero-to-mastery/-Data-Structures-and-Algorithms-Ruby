@@ -68,6 +68,77 @@ class BinarySearchTree
     end
     return nil
   end
+
+  def remove(value)
+    if(!@root)
+      return false
+    end
+    current_node = @root
+    parent_node = nil
+    while(current_node)
+      if(value < current_node.value)
+        parent_node = current_node
+        current_node = current_node.left
+      elsif(value > current_node.value)
+        parent_node = current_node
+        current_node = current_node.right
+      elsif (current_node.value == value)
+        #We have a match, get to work!
+
+        #Option 1: No right child:
+        if(current_node.right == nil)
+          if(parent_node == nil)
+            @root = current_node.left
+          else
+            # if parent > current value, make current left child a child of parent.
+            if(current_node.value < parent_node.value)
+              parent_node.left = current_node.left
+            #if parent < current value, make left child a right child of parent
+            elsif(current_node.value > parent_node.value)
+              parent_node.right = current_node.left
+            end
+          end
+        #Option 2: Right child which doesn't have a left child
+        elsif(current_node.right.left == nil)
+          current_node.right.left = current_node.left
+          if(parent_node == nil)
+            @root = current_node.right
+          else
+          #If parent > current, make right child of the left, the parent.
+            if(current_node.value < parent_node.value)
+              parent_node.left = current_node.right
+            #if parent < current node, make right child a right child of the parent
+            elsif(current_node.value > parent_node.value)
+              parent_node.right = current_node.right
+            end
+          end
+        #Option 3: Right child has a left child
+        else
+          leftmost = current_node.right.left
+          leftmost_parent = current_node.right
+          while(leftmost.left != nil)
+            leftmost_parent = leftmost
+            leftmost = leftmost.lefmost
+          end
+          #Parent's left subtree is now leftmost's right subtree
+          leftmost_parent.left = leftmost.right
+          leftmost.left = current_node.left
+          leftmost.right = current_node.right
+
+          if(parent_node == nil)
+            @root = lefmost
+          else
+            if(current_node.value < parent_node.value)
+              parent_node.left = lefmost
+            elsif(current_node.value > parent_node.value)
+              parent_node.right = lefmost
+            end
+          end
+        end
+        return true
+      end
+    end
+  end
 end
 
 #      9
@@ -90,6 +161,7 @@ tree.insert(20)
 tree.insert(170)
 tree.insert(15)
 tree.insert(1)
+tree.remove(170)
 p tree.lookup(5)
 p traverse(tree.root).to_json
 
