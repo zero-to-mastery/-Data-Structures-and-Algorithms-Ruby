@@ -9,5 +9,4 @@ Algorithms -
   Recursion
   Sorting
   Traversals
-  BFS
-  DFS
+
